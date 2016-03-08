@@ -3,6 +3,7 @@
 #include <cctype>       // std::isdigit
 #include <stdio.h>
 #include <stdlib.h>
+#include "complejo.h"
 #include "racional.h"
 #include "pila.h"
 
