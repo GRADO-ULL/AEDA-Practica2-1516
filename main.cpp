@@ -1,9 +1,7 @@
-#include <iostream>     // std::cin, std::cout
-#include <string>       // std::string
+#include <iostream>     
+#include <string>   
 #include <cctype>       // std::isdigit
-#include <stdio.h>
 #include <stdlib.h>
-#include "complejo.h"
 #include "racional.h"
 #include "pila.h"
 
@@ -11,32 +9,36 @@ using namespace std;
 
 typedef int TDATO; 
 
+
 int main () {
 
-  pila p1;
+  pila<TDATO> p1;
+
   cout << "Introduzca expresion regular: ";
-  cout.flush();    // ensure output is written
+  cout.flush(); 
 
 while(cin.peek() != EOF && cin.peek() != '\n')
 {
-  cin >> std::ws;  // eat up any leading white spaces
-  TDATO c = cin.peek();  // peek character
-  cout << "Peek->" << cin.peek() << endl;
-  
-  if (isdigit(c) )
+  cin >> std::ws;  // Gestión de los espacios en blanco
+  TDATO c = cin.peek();  // carácter peek
+//  cout << "Peek->" << cin.peek() << endl;
+
+  if (isdigit(c))
   {
-    TDATO n;
-    cin >> n;
-    cout << "Ha introducido un digito " << n << '\n';
-    p1.push(n);
+     TDATO n;
+     cin >> n;
+
+     cout << "Ha introducido un digito " << n << '\n';
+     p1.push(n);
+   
   }
   else
   {
+     
     char str;
     cin >> str;
     if(!isdigit(cin.peek()))
     {
-        cout << "Str->" << str << endl;
 
         cout << "Ha introducido un operando: " << str << '\n';
         switch(str)
@@ -49,17 +51,17 @@ while(cin.peek() != EOF && cin.peek() != '\n')
                     int i=0;
                     while(i<2)
                     {
-                        auxiliar += p1.pop();
+                        //cout << "pop:" << p1.pop() << endl;
+                        auxiliar = p1.pop() + auxiliar;
                         //cout << "Auxiliar-> " << auxiliar << endl;
                         i++;
                     }
                     p1.push(auxiliar);
-                    p1.mostrar_pila();
                     break;
                 }
             case '-':
                 {
-                    TDATO auxiliar = 0;
+                    TDATO auxiliar;
                     //cout << "Restando" << endl;
                     //cout << "Auxiliar-> " << auxiliar << endl;
                     int i=0;
@@ -77,7 +79,6 @@ while(cin.peek() != EOF && cin.peek() != '\n')
             case '*':
                 {
                     TDATO auxiliar = 1;
-                    //cout << "Multiplicando..." << endl;
                     //cout << "Auxiliar->" << auxiliar  << endl;
                     int i=0;
                     while(i<2)
@@ -92,7 +93,6 @@ while(cin.peek() != EOF && cin.peek() != '\n')
             case '/':
                 {
                     TDATO auxiliar = 1;
-                    //cout << "Dividiendo..." << endl;
                     auxiliar = p1.pop();
                     auxiliar = p1.pop() / auxiliar;
                     p1.push(auxiliar);
@@ -107,19 +107,23 @@ while(cin.peek() != EOF && cin.peek() != '\n')
         if(str == '-')
         {
            TDATO c = cin.peek();  // peek character
-           cout << "Peek->" << cin.peek() << endl;
+           //cout << "Peek->" << cin.peek() << endl;
           
             if (isdigit(c) )
             {
-             TDATO n;
-             cin >> n;
-             n = -n;
-             cout << "Ha introducido un digito " << n << '\n';
-             p1.push(n);
+                 TDATO n;
+                 cin >> n;
+                 n = -n;
+                 cout << "Ha introducido un digito " << n << '\n';
+                 p1.push(n);
             }
         }
-    }
+     }
   }
+
+  cout << "Mostrando pila" << endl;
+  p1.mostrar_pila();
+  cout << endl;
 }
 
   cout << "Resultado: " << endl;
